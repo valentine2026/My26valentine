@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    color: white;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    position: relative;
+    width: 260px;
+    height: 160px;
+    margin: auto;
+  }
+
+  button {
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #yes {
+    position: absolute;
+    left: 0;
+    background: #ff2e63;
+    color: white;
+  }
+
+  #no {
+    position: absolute;
+    right: 0;
+    background: white;
+    color: #ff2e63;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 22px;
+    animation: float 5s linear infinite;
+  }
+
+  @keyframes float {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+  }
+
+  .photo {
+    display: none;
+    margin-top: 20px;
+  }
+
+  .photo img {
+    width: 220px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+
+  .cry {
+    display: none;
+    font-size: 60px;
+    animation: shake 0.5s infinite;
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 id="question">Will you be my Valentine? 💕</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes ❤️</button>
+    <button id="no">No 😢</button>
+  </div>
+
+  <div class="photo" id="photo">
+    <h2>Yay! 💖💖💖</h2>
+    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="Love">
+  </div>
+
+  <div class="cry" id="cry">😭💔😭</div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+  const photo = document.getElementById("photo");
+  const cry = document.getElementById("cry");
+  const question = document.getElementById("question");
+  const music = document.getElementById("music");
+
+  let tries = 0;
+
+  function dodgeYes() {
+    if (tries < 10) {
+      tries++;
+      yes.style.left = Math.random() * 180 + "px";
+      yes.style.top = Math.random() * 120 + "px";
+    } else {
+      yes.onclick = acceptLove;
+      yes.innerText = "Yes 😍";
+    }
+  }
+
+  function acceptLove() {
+    music.play();
+    question.innerText = "I knew it! 💖";
+    photo.style.display = "block";
+    yes.style.display = "none";
+    no.style.display = "none";
+  }
+
+  yes.addEventListener("mouseover", dodgeYes);
+  yes.addEventListener("touchstart", dodgeYes);
+
+  no.onclick = () => {
+    music.play();
+    cry.style.display = "block";
+    setTimeout(() => cry.style.display = "none", 3000);
+  };
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💕";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 350);
+</script>
+
+</body>
+</html>
