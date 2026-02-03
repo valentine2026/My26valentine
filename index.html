@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Be My Valentine 💖</title>
 
 <style>
@@ -20,21 +20,23 @@
   .container {
     text-align: center;
     color: white;
+    padding: 16px;
   }
 
   h1 {
     margin-bottom: 20px;
+    font-size: clamp(22px, 5vw, 32px);
   }
 
   .buttons {
     position: relative;
     width: 260px;
-    height: 160px;
+    height: 140px;
     margin: auto;
   }
 
   button {
-    padding: 12px 24px;
+    padding: 12px 22px;
     font-size: 18px;
     border-radius: 30px;
     border: none;
@@ -46,6 +48,7 @@
     left: 0;
     background: #ff2e63;
     color: white;
+    transition: all 0.2s ease;
   }
 
   #no {
@@ -55,10 +58,12 @@
     color: #ff2e63;
   }
 
+  /* Floating hearts */
   .heart {
     position: absolute;
     font-size: 22px;
     animation: float 5s linear infinite;
+    pointer-events: none;
   }
 
   @keyframes float {
@@ -66,21 +71,31 @@
     to { transform: translateY(-10vh); opacity: 0; }
   }
 
+  /* Photo reveal */
   .photo {
     display: none;
-    margin-top: 20px;
+    margin-top: 24px;
+    animation: reveal 1.2s ease forwards;
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
   }
 
   .photo img {
-    width: 220px;
+    max-width: 90vw;
+    width: 240px;
     border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.35);
   }
 
+  /* Cry animation */
   .cry {
     display: none;
     font-size: 60px;
     animation: shake 0.5s infinite;
+    margin-top: 20px;
   }
 
   @keyframes shake {
@@ -96,7 +111,7 @@
 <body>
 
 <div class="container">
-  <h1 id="question">Will you be my Valentine? 💕</h1>
+  <h1 id="question">🌹 Adarsh, will you be my Valentine?</h1>
 
   <div class="buttons">
     <button id="yes">Yes ❤️</button>
@@ -104,13 +119,8 @@
   </div>
 
   <div class="photo" id="photo">
-    <h2>Yay! 💖💖💖</h2>
-<img 
-  src="love.jpg.jpeg" 
-  alt="Love Photo"
-  style="max-width:90%; height:auto; border-radius:12px;"
-/>
- alt="Love">
+    <h2>Yay! 💖</h2>
+    <img src="love.jpg.jpeg" alt="Love Photo">
   </div>
 
   <div class="cry" id="cry">😭💔😭</div>
@@ -133,8 +143,10 @@
   function dodgeYes() {
     if (tries < 10) {
       tries++;
-      yes.style.left = Math.random() * 180 + "px";
-      yes.style.top = Math.random() * 120 + "px";
+      const maxX = 180;
+      const maxY = 90;
+      yes.style.left = Math.random() * maxX + "px";
+      yes.style.top = Math.random() * maxY + "px";
     } else {
       yes.onclick = acceptLove;
       yes.innerText = "Yes 😍";
@@ -143,7 +155,7 @@
 
   function acceptLove() {
     music.play();
-    question.innerText = "I knew it! 💖";
+    question.innerText = "I knew it 💖";
     photo.style.display = "block";
     yes.style.display = "none";
     no.style.display = "none";
@@ -155,7 +167,7 @@
   no.onclick = () => {
     music.play();
     cry.style.display = "block";
-    setTimeout(() => cry.style.display = "none", 3000);
+    setTimeout(() => cry.style.display = "none", 2500);
   };
 
   setInterval(() => {
@@ -170,3 +182,4 @@
 
 </body>
 </html>
+
